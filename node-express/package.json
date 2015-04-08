@@ -1,0 +1,14 @@
+{
+	"name": "MEAN-stack-docker",
+	"version": "0.1.0",
+	"description": "An example of package file for MEAN stack with docker containers",
+	"author": "Quentin Fayet <fayet.quentin@gmail.com>",
+	"scripts": {
+		"start": "node /data/app/server.js",
+		"predeploy": "I am about to deploy"
+	},
+	"dependencies": {
+		"express": "3.x"
+	},
+	"license": "MIT"
+}
