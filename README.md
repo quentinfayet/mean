@@ -4,7 +4,33 @@ I've decided to Dockerize the MEAN stack, in order to ease my futur developments
 
 This stack is really basic, i really welcome improvments.
 
-## The DataStore
+There is two ways to set up this stack. The first one is by getting the images from my DockerHub repository ; the second one is by building the images on your own, then runing it.
+
+## Getting from the DockerHub
+
+First of all, this is a quick way to set up the environnement. If you want to know more about the different images, please go to the "Building & Running on your own" section down bellow.
+
+### Running the Datastore container
+
+```shell
+$> docker run -d --name my_datastore quentinfayet/datastore:0.1
+```
+
+### Running the Mongo container 
+
+```shell
+$> docker run -d --volumes-from datastore --name my_mongodb -p 27017:27017 quentinfayet/mongodb:0.1
+```
+
+### Running the Node.js container
+
+```shell
+$> docker run --name my_node -d -i -t  -v /data/app:/data/app -p 8888:8888 quentinfayer/node:0.1
+```
+
+## Building & Running on your own
+
+### The DataStore
 
 What I call the "DataStore" is the container I use to store persistent data. As Docker creates a volume for each container on the host filesystem, I created this container to share its volume with other containers (like a hub).
 
@@ -20,7 +46,7 @@ $> docker build -t datastore .
 Then, you need to run it at least one time for the volume to be created on the host filesystem (I gave it the name of "my_datastore") :
 
 ```shell
-$> docker run -d --name my_datastore
+$> docker run -d --name my_datastore datastore
 ```
 You can check its existence with the following docker command : 
 
@@ -31,7 +57,7 @@ $> docker ps -a
 
 The volume has been created on the host filesystem, you can check it by listing the files in the /var/lib/docker/volumes directory.
 
-## The Mongo
+### The Mongo
 
 The MongoDB container can be built by running the build command in the appropriate directory (I gave him the tag "mongo"):
 
@@ -50,7 +76,7 @@ $> docker run -d --volumes-from datastore --name my_mongodb -p 27017:27017 mongo
 
 Now, you can try to connect the host on the 27017 port, that will be forwarded to the container's 27017 port.
 
-## The Node.js
+### The Node.js
 
 The final part of the BackOffice of the MEAN Stack is the Node.js server, along with Express framework.
 
