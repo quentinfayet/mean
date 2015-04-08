@@ -19,13 +19,13 @@ $> docker run -d --name my_datastore quentinfayet/datastore:0.1
 ### Running the Mongo container 
 
 ```shell
-$> docker run -d --volumes-from datastore --name my_mongodb -p 27017:27017 quentinfayet/mongodb:0.1
+$> docker run -d --volumes-from my_datastore --name my_mongodb -p 27017:27017 quentinfayet/mongodb:0.1
 ```
 
 ### Running the Node.js container
 
 ```shell
-$> docker run --name my_node -d -i -t  -v /data/app:/data/app -p 8888:8888 quentinfayer/node:0.1
+$> docker run --name my_node -d -i -t  -v /data/app:/data/app -p 8888:8888 quentinfayet/node:0.1
 ```
 
 ## Building & Running on your own
@@ -71,7 +71,7 @@ The "tricky" part is that I don't want the Mongo container to store data on his 
 In order to do so, we can use the --volumes-from parameter of the Docker "run" command. I also want to forward the default mongo port (27017) to the host port 27017. Finally, i run it in detached mode.
 
 ```shell
-$> docker run -d --volumes-from datastore --name my_mongodb -p 27017:27017 mongo
+$> docker run -d --volumes-from my_datastore --name my_mongodb -p 27017:27017 mongo
 ```
 
 Now, you can try to connect the host on the 27017 port, that will be forwarded to the container's 27017 port.
