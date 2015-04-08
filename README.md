@@ -14,7 +14,7 @@ You can build it by running a simple build command inside the directory.
 
 ```shell
 $> cd datastore
-$> docker build -t datastore
+$> docker build -t datastore .
 ```
 
 Then, you need to run it at least one time for the volume to be created on the host filesystem (I gave it the name of "my_datastore") :
@@ -37,7 +37,7 @@ The MongoDB container can be built by running the build command in the appropria
 
 ```shell
 $> cd mongo 
-$> docker build -t mongo
+$> docker build -t mongo .
 ```
 
 The "tricky" part is that I don't want the Mongo container to store data on his own. I would prefer that it stores data in the appropriate "datastore" container we built earlier.
@@ -58,7 +58,7 @@ Building it :
 
 ```shell
 $> cd node-express 
-$> docker build -t node
+$> docker build -t node .
 ```
 
 In my stack, I assumed the app directory would be the /data/app directory on the host filesystem. I defined it in the package.json file. The base image I used in this container is the official node image. This image assumes that you have a package.json file in your directory, with a start script defined in it.
